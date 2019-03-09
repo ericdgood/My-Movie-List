@@ -18,6 +18,7 @@ import mymovielistapp.pia.mymovielist.adapters.RecyclerviewAdapter;
 import mymovielistapp.pia.mymovielist.model.Movies;
 import mymovielistapp.pia.mymovielist.network.GetNetworkData;
 import mymovielistapp.pia.mymovielist.network.RetroClient;
+import mymovielistapp.pia.mymovielist.presenter.MoviePresenter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private static final String TAG = "MainActivity";
+    MoviePresenter presenter = new MoviePresenter(this);
+    Movies movieList = new Movies();
     ActionBar toolbar;
-    ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
     RecyclerviewAdapter adapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Create Presenter
+        presenter.onCreate();
+
 //        Start Butterknife
         ButterKnife.bind(this);
 
@@ -71,33 +77,16 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.loading));
         progressDialog.show();
 
-        getMovieData();
+        presenter.getMovieData();
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void getMovieData() {
-
-        GetNetworkData service = RetroClient.getRetrofitInstance().create(GetNetworkData.class);
-
-        Call<Movies> call = service.getNowPlaying();
-
-        call.enqueue(new Callback<Movies>() {
-            @Override
-            public void onResponse(Call<Movies> call, Response<Movies> response) {
-                progressDialog.dismiss();
-                genorateDataList(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Movies> call, Throwable t) {
-                progressDialog.dismiss();
-                Log.i(TAG, "onFailure: " + t);
-            }
-        });
+    public void dismissProgressDialog(){
+        progressDialog.dismiss();
     }
 
-    private void genorateDataList(Movies movieList) {
+    public void genorateDataList(Movies movieList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new RecyclerviewAdapter(movieList, MainActivity.this));
