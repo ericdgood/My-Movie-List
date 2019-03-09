@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 
 import butterknife.BindView;
@@ -16,12 +15,7 @@ import butterknife.ButterKnife;
 import mymovielistapp.pia.mymovielist.R;
 import mymovielistapp.pia.mymovielist.adapters.RecyclerviewAdapter;
 import mymovielistapp.pia.mymovielist.model.Movies;
-import mymovielistapp.pia.mymovielist.network.GetNetworkData;
-import mymovielistapp.pia.mymovielist.network.RetroClient;
 import mymovielistapp.pia.mymovielist.presenter.MoviePresenter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,12 +24,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    private static final String TAG = "MainActivity";
     MoviePresenter presenter = new MoviePresenter(this);
-    Movies movieList = new Movies();
     ActionBar toolbar;
     public ProgressDialog progressDialog;
-    RecyclerviewAdapter adapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.now_playing:
                     toolbar.setTitle(R.string.now_playing);
+                    presenter.getMovieData(R.string.now_playing);
                     return true;
                 case R.id.favorites:
                     toolbar.setTitle(R.string.favorites);
                     return true;
                 case R.id.upcoming:
                     toolbar.setTitle(R.string.upcoming);
+                    presenter.getMovieData(R.string.upcoming);
                     return true;
             }
             return false;
@@ -71,13 +64,12 @@ public class MainActivity extends AppCompatActivity {
 //        Setup toolbar
         toolbar = getSupportActionBar();
         toolbar.setTitle(R.string.now_playing);
+        presenter.getMovieData(R.string.now_playing);
 
 //          Start ProgressDialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
         progressDialog.show();
-
-        presenter.getMovieData();
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
