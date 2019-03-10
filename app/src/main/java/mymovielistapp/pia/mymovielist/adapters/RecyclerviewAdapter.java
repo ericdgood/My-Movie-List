@@ -6,13 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import mymovielistapp.pia.mymovielist.R;
 import mymovielistapp.pia.mymovielist.model.Movies;
-import mymovielistapp.pia.mymovielist.views.MainActivity;
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.ViewHolder> {
 
@@ -34,7 +36,16 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.ViewHolder viewHolder, int position) {
+//      Set Movie Title
         viewHolder.tvMovieTitle.setText(movieList.getResults().get(position).getOriginalTitle());
+
+//        Set Movie Poster
+        String moviePosterString = "https://image.tmdb.org/t/p/w500" + movieList.getResults().get(position).getPosterPath();
+
+        Glide.with(context)
+                .load(moviePosterString)
+                .error(R.drawable.ic_upcoming)
+                .into(viewHolder.imgMoviePoster);
     }
 
     @Override
@@ -46,6 +57,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
         @BindView(R.id.textview_movie_title)
         TextView tvMovieTitle;
+        @BindView(R.id.imageview_movie_poster)
+        ImageView imgMoviePoster;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
