@@ -25,30 +25,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     MoviePresenter presenter = new MoviePresenter(this);
-    ActionBar toolbar;
+    public ActionBar toolbar;
     public ProgressDialog progressDialog;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.now_playing:
-                    toolbar.setTitle(R.string.now_playing);
-                    presenter.getMovieData(R.string.now_playing);
-                    return true;
-                case R.id.favorites:
-                    toolbar.setTitle(R.string.favorites);
-                    return true;
-                case R.id.upcoming:
-                    toolbar.setTitle(R.string.upcoming);
-                    presenter.getMovieData(R.string.upcoming);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.loading));
         progressDialog.show();
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(presenter.mOnNavigationItemSelectedListener);
     }
 
     public void dismissProgressDialog(){
         progressDialog.dismiss();
     }
 
-    public void genorateDataList(Movies movieList) {
+    public void generateDataList(Movies movieList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new RecyclerviewAdapter(movieList, MainActivity.this));
