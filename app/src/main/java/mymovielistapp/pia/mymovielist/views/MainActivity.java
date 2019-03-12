@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerviewAdapt
         movieDetail.putExtra("moviePoster", movieList.getResults().get(position).getPosterPath());
         movieDetail.putExtra("movieOverview", movieList.getResults().get(position).getOverview());
         movieDetail.putExtra("movieRelease", movieList.getResults().get(position).getReleaseDate());
-        movieDetail.putExtra("movieVote", movieList.getResults().get(position).getVoteAverage());
+        movieDetail.putExtra("movieVote", String.valueOf(movieList.getResults().get(position).getVoteAverage()));
         startActivity(movieDetail);
     }
 }
