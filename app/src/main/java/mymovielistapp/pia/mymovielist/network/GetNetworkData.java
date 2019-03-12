@@ -11,4 +11,5 @@ public interface GetNetworkData {
 
     @GET("upcoming?api_key=d32cc5bd24233a690a9c9c367d00111c&language=en-US&page=1")
     Call<Movies> getUpcoming();
+
 }

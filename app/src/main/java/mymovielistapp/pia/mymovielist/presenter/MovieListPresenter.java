@@ -14,13 +14,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MoviePresenter implements Presenter{
+public class MovieListPresenter implements ListPresenter {
 
-    private static final String TAG = "MoviePresenter";
+    private static final String TAG = "MovieListPresenter";
     private MainActivity view;
     private Call<Movies> call;
 
-    public MoviePresenter(MainActivity view) {
+    public MovieListPresenter(MainActivity view) {
         this.view = view;
     }
 

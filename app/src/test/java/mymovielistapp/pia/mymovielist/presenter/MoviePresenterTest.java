@@ -17,7 +17,7 @@ public class MoviePresenterTest {
 
     Movies movieList;
 
-    MoviePresenter presenter;
+    MovieListPresenter presenter;
 
     @Mock
     private MainActivity view;
