@@ -25,3 +25,9 @@ In this project, I learned and implemented MVP, while also learning and implemen
 ```
 
 I used themoviedb.org to retrieve API movie info.
+
+![Screenshot_1552361455](https://user-images.githubusercontent.com/36997795/54172903-19120b80-4456-11e9-9902-0da0072d3b36.png)
+
+![Screenshot_1552361469](https://user-images.githubusercontent.com/36997795/54172904-19120b80-4456-11e9-8556-ddf4d5433686.png)
+
+![Screenshot_1552361475](https://user-images.githubusercontent.com/36997795/54172905-19120b80-4456-11e9-9f0a-3c1a795cba1e.png)
