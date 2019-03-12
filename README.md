@@ -24,7 +24,7 @@ In this project, I learned and implemented MVP, while also learning and implemen
     'org.mockito:mockito-all:1.9.5'
 ```
 
-I used themoviedb.org to retrieve API movie info.
+I used themoviedb.org to retrieve API movie info. 
 
 ![Screenshot_1552361455](https://user-images.githubusercontent.com/36997795/54172903-19120b80-4456-11e9-9902-0da0072d3b36.png)
 
